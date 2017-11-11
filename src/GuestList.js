@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Guest from "./Guest";
+import PendingGuest from "./PendingGuest";
 
 const GuestList = props =>
   <ul>
+    <PendingGuest name={props.pendingGuest} />
     {
       props.guests
         // if isFiltered is false OR guest isConfirmed is true
@@ -29,6 +31,7 @@ GuestList.propTypes = {
   setNameAt: PropTypes.func.isRequired,
   removeGuestAt: PropTypes.func.isRequired,
   isFiltered: PropTypes.bool.isRequired,
+  pendingGuest: PropTypes.string.isRequired,
 };
 
 export default GuestList;
