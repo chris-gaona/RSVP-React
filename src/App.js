@@ -21,6 +21,22 @@ class App extends Component {
     ],
   };
 
+  toggleConfirmationAt = indexToChange =>
+    this.setState({
+      guests: this.state.guests.map((guest, index) => {
+        if (index === indexToChange) {
+          return {
+            // spread operator... transfers keys & values from one object to another
+            ...guest,
+            // this line overrides the previous spread operator key/value for isConfirmed
+            isConfirmed: !guest.isConfirmed
+          }
+        }
+
+        return guest;
+      })
+    });
+
   getTotalInvited = () => this.state.guests.length;
 
   // getAttendingGuests = () =>
