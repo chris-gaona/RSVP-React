@@ -45,6 +45,18 @@ class App extends Component {
   toggleConfirmationAt = index =>
     this.toggleGuestPropertyAt("isConfirmed", index);
 
+  removeGuestAt = index =>
+    this.setState({
+      guests: [
+        // use spread operator to put contents of 2 arrays into this one
+        // first array holds all guests including one we want to remove
+        // use slice to remove the proper item from the array
+        ...this.state.guests.slice(0, index),
+        // following produces array of everything after the removed element
+        ...this.state.guests.slice(index + 1)
+      ]
+    });
+
   toggleEditingAt = index =>
     this.toggleGuestPropertyAt("isEditing", index);
 
@@ -139,6 +151,7 @@ class App extends Component {
             guests={this.state.guests}
             toggleConfirmationAt={this.toggleConfirmationAt}
             toggleEditingAt={this.toggleEditingAt}
+            removeGuestAt={this.removeGuestAt}
             setNameAt={this.setNameAt}
             isFiltered={this.state.isFiltered} />
 
