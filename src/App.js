@@ -8,20 +8,23 @@ class App extends Component {
     guests: [
       {
         name: "Treasure",
-        isConfirmed: false
+        isConfirmed: false,
+        isEditing: false
       },
       {
         name: "Nic",
-        isConfirmed: true
+        isConfirmed: true,
+        isEditing: false
       },
       {
         name: "Matt",
-        isConfirmed: true
+        isConfirmed: true,
+        isEditing: true
       }
     ],
   };
 
-  toggleConfirmationAt = indexToChange =>
+  toggleGuestPropertyAt = (property, indexToChange) =>
     this.setState({
       guests: this.state.guests.map((guest, index) => {
         if (index === indexToChange) {
@@ -29,7 +32,30 @@ class App extends Component {
             // spread operator... transfers keys & values from one object to another
             ...guest,
             // this line overrides the previous spread operator key/value for isConfirmed
-            isConfirmed: !guest.isConfirmed
+            [property]: !guest[property]
+          }
+        }
+
+        return guest;
+      })
+    });
+
+  toggleConfirmationAt = index =>
+    this.toggleGuestPropertyAt("isConfirmed", index);
+
+  toggleEditingAt = index =>
+    this.toggleGuestPropertyAt("isEditing", index);
+
+  setNameAt = (name, indexToChange) =>
+    this.setState({
+      guests: this.state.guests.map((guest, index) => {
+        if (index === indexToChange) {
+          return {
+            // spread operator... transfers keys & values from one object to another
+            ...guest,
+            // this line overrides the previous spread operator key/value for isConfirmed
+            // since the property name is the same as the key, es6 allows the following simplicity
+            name
           }
         }
 
@@ -79,7 +105,9 @@ class App extends Component {
 
           <GuestList
             guests={this.state.guests}
-            toggleConfirmationAt={this.toggleConfirmationAt} />
+            toggleConfirmationAt={this.toggleConfirmationAt}
+            toggleEditingAt={this.toggleEditingAt}
+            setNameAt={this.setNameAt} />
 
         </div>
       </div>
