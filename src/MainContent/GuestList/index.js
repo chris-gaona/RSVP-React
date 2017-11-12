@@ -13,14 +13,14 @@ const GuestList = props =>
         .filter(guest => !props.isFiltered || guest.isConfirmed)
         .map((guest, index) =>
       <Guest
-        key={index}
+        key={guest.id}
         name={guest.name}
         isConfirmed={guest.isConfirmed}
         isEditing={guest.isEditing}
-        handleConfirmation={() => props.toggleConfirmationAt(index)}
-        handleToggleEditing={() => props.toggleEditingAt(index)}
-        setName={text => props.setNameAt(text, index)}
-        handleRemove={() => props.removeGuestAt(index)} />
+        handleConfirmation={() => props.toggleConfirmationAt(guest.id)}
+        handleToggleEditing={() => props.toggleEditingAt(guest.id)}
+        setName={text => props.setNameAt(text, guest.id)}
+        handleRemove={() => props.removeGuestAt(guest.id)} />
     )}
   </ul>;
 
